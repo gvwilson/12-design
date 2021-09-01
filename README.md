@@ -412,11 +412,16 @@ action-at-a-distance for novices.
 > The best balance between abstraction and detail depends on how much people
 > already know. For a novice, too many low-level details obscure the meaning,
 > while too much abstraction makes it impossible to figure out what's actually
-> going on (<a href="./comprehension.png">Figure 1</a>). As that person gains
+> going on (<a href="#comprehension">Figure 1</a>). As that person gains
 > experience they become better able to synthesize meaning from detail and
 > translate generalities into specifics, but their optimum balance also shifts.
 > Software that is easiest for them to understand may not be optimal for someone
 > else.
+
+<figure id="comprehension">
+<img src="./comprehension.png" alt="Comprehension curves" />
+<figcaption>Figure 1: Comprehension curves</figcaption>
+</figure>
 
 ## Rule 10: design graphically
 
@@ -432,16 +437,32 @@ their thoughts out where they can see them [Cherubini2007; Petre2016].
 Among the drawings that working programmers often find helpful are:
 
 -   flowcharts, which are unfairly maligned [Scanlan1989]
-    (<a href="./flowchart.png">Figure 2</a>);
+    (<a href="#flowchart">Figure 2</a>);
 
 -   entity-relationship diagrams showing how database tables relate to
-    one another (<a href="./er-diagram.png">Figure 3</a>);
+    one another (<a href="#er-diagram">Figure 3</a>);
 
--   system architecture diagrams showing the major components of an
-    application and how they interact (<a href="./architecture.png">Figure 4</a>); and
+-   concept maps showing how the designer thinks about the overall problem
+    (<a href="#concept-map">Figure 4</a>); and
 
--   use case maps that show how activity flows through an architecture
-    [Reekie2006] (<a href="./use-case-map.png">Figure 5</a>).
+-   many others, such as system architecture diagrams showing the major
+    components of an application and use case maps that show how
+    activity flows through an architecture [Reekie2006].
+
+<figure id="flowchart">
+<img src="./flowchart.png" alt="Flowchart" />
+<figcaption>Figure 2: Flowchart</figcaption>
+</figure>
+
+<figure id="er-diagram">
+<img src="./er-diagram.png" alt="Entity-relationship diagram" />
+<figcaption>Figure 3: Entity-relationship diagram</figcaption>
+</figure>
+
+<figure id="concept-map">
+<img src="./concept-map.png" alt="Concept map" />
+<figcaption>Figure 4: Concept map</figcaption>
+</figure>
 
 ## Rule 11: design with everyone in mind
 
@@ -505,13 +526,18 @@ contribution:
 
 ## Conclusion
 
-<a href="derosa.jpg">Figure 6</a> is a De
+<a href="#bicycle">Figure 6</a> is a De
 Rosa SK Pininfarina bicycle. It is not a work of art, but it can be
 analyzed and appreciated esthetically. I believe that programs can be
 like bicycles: useful and beautiful at the same time. We do not yet have
 as rich a vocabulary for talking about the beauty of software in the
 same way that we can talk about the beauty of bicycles or buildings, but
 we can still strive to make what we create worthy of appreciation.
+
+<figure id="bicycle">
+<img src="./derosa.jpg" alt="De Rosa bicycle" />
+<figcaption>Figure 6: De Rosa SK Pininfarina bicycle (image from https://derosanorthamerica.com/)</figcaption>
+</figure>
 
 ## Bibliography
 
