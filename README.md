@@ -4,24 +4,26 @@ Greg Wilson | http://third-bit.com
 
 ## Introduction
 
-Most people can lift one kilogram, but would struggle to lift one
-hundred, and could not lift a thousand without planning and support.
-Similarly, most researchers can write a few lines of Python, R, or
-MATLAB to create a plot, but most would struggle to create a program
-that was a few hundred lines long, and wouldn't know where to start
-building an application with many thousands of lines spread across
-dozens of modules or packages.
+Most people can lift one kilogram, but would struggle to lift one hundred, and
+could not lift a thousand without planning and support.  Similarly, most
+researchers can write a few lines of Python, R, or MATLAB to create a plot, but
+would struggle to create a program that was a few hundred lines long, and
+wouldn't know where to start building an application with many thousands of
+lines spread across dozens of modules or packages.
 
-Most people don't have to write software at that scale, thanks in large
-part to an ever-expanding ecosystem of open source software. But someone
-has to, and those programmers' ability to do so depends on being able to
-design at that scale. *Programming in the large* is qualitatively
-different from *programming in the small*. as the number of pieces in a
-program grows, the number of possible interactions between those pieces
-grows much more quickly because <em>N</em> components can be paired in
-<em>N<sup>2</sup></em> ways. Programmers who don't manage this complexity
-quickly wind up with software that behaves in unexpected (and usually
-unfortunate) ways and that cannot be modified without heroic effort.
+The core challenge is that *programming in the large* is qualitatively different
+from *programming in the small*.  as the number of pieces in a program grows,
+the number of possible interactions between those pieces grows much more quickly
+because <em>N</em> components can be paired in <em>N<sup>2</sup></em> ways.
+Programmers who don't manage this complexity quickly wind up with software that
+behaves in unexpected (and usually unfortunate) ways and that cannot be modified
+without heroic effort.
+
+Most people don't have to write software at that scale, thanks in large part to
+an ever-expanding ecosystem of open source software, but someone has to.  Since
+many big programs begin life as small scripts, knowing how to design in the
+large helps ensure that what's done in the small is pointed in the right
+direction.
 
 This paper describes a dozen rules that can help data scientists design
 large programs. These rules are taken from published sources, the
@@ -34,7 +36,7 @@ The author is grateful to Rebecca Barter, Neil Brown, Matthias Bussonnier,
 Daniel Chen, Ildi Czeller, Bradford Dykes, Damien Irving, Mandip Mistry, and
 Donny Winston for feedback on early versions of this paper.
 
-## Rule 1: design after the fact
+## Rule 1: design after the fact
 
 When we are doing research, we often don't know what the code should do
 tomorrow until we've seen today's results. It's therefore often
@@ -49,7 +51,7 @@ changing its externally-visible behavior. [Fowler2018] describes common
 refactorings, such as "extract function" (i.e., move some code out of
 the function its in and put it in a new function so that it can be
 called separately) and "combine parameters into object" (which we we
-will revisit in Rule 3). Just as the tidying steps in a data pipeline
+will revisit in Rule 5). Just as the tidying steps in a data pipeline
 either convert messy data to a tidy layout or move the data from one
 tidy layout to another [Wickham2017], most refactoring operations move
 code toward or between well-defined patterns [Kerievsky2004].
@@ -59,12 +61,12 @@ code toward or between well-defined patterns [Kerievsky2004].
 > *challenge and response*: the only way to understand why something
 > works the way it does is to understand the problems that existed at
 > the time it was written and the tools that were available then.
-> Neither programming languages nor existing graphical notations (Rule
-> 10) are particularly good at capturing this, and while many tools have
+> Neither programming languages nor existing graphical notations (Rule 10)
+> are particularly good at capturing this, and while many tools have
 > been written for tracking and managing requirements, none have worked
 > well enough that the average programmer would voluntarily adopt them.
 
-## Rule 2: design for people's cognitive capacity
+## Rule 2: design for people's cognitive capacity
 
 Just as computers have hard drives and RAM, human brains have long-term
 and short-term memory [Hermans2021]. We only have conscious access to
@@ -95,7 +97,7 @@ a small change, but aligning the reading order with execution order
 makes the overall effect easier to understand because the reader only
 has to "carry forward" one piece of information at a time.
 
-## Rule 3: design in coherent levels
+## Rule 3: design in coherent levels
 
 Another rule for designing functions is that each function should be
 short, shallow, and single-purpose, i.e., it should implement a single
@@ -126,7 +128,7 @@ This rewrite saves the reader from having to jump between two different
 levels of detail while they're trying to figure out what this function
 does.
 
-## Rule 4: design for evolution
+## Rule 4: design for evolution
 
 The change shown above also makes future evolution easier. If we decide
 that the simulation should run until a specified time *or* until its
@@ -185,7 +187,7 @@ previous example, a new function's pre-conditions could be that it takes
 any array of numbers, not just one that is sorted, and that it produces
 the largest element in the array.
 
-## Rule 5: group related information together
+## Rule 5: group related information together
 
 If several things are closely related or frequently occur together, our
 brains combine them into a "chunk" that only takes up one slot in
@@ -205,7 +207,7 @@ like this:
 Where we need the individual coordinates, we can refer to them as
 `p0.X`, `p0.Y`, and so on.
 
-## Rule 6: use common patterns
+## Rule 6: use common patterns
 
 Some chunks appear so often that we call them "patterns" and give them
 names. For example, parasitism and symbiosis take many forms, and it's
@@ -248,7 +250,7 @@ the third line was the most complicated, the error had to be there.
 > "color" the correct way or the British way; what matters is the
 > predictability that comes from consistency.
 
-This example illustrates a corollary to Rule 5: we should write programs
+This example illustrates a corollary to Rule 2: we should write programs
 that maximize the ratio of unique code to boilerplate. In most modern
 languages, the five lines shown above can be written as:
 
@@ -257,7 +259,46 @@ languages, the five lines shown above can be written as:
 This version is probably as efficient as the first, but it is much
 easier to read and therefore much less likely to mislead.
 
-## Rule 7: design for testability
+## Rule 7: design for delivery
+
+Developer operations (DevOps) has become a buzzword in the last few
+years. Like "data science" or "computational thinking", the term is
+popular because people can use it to mean whatever they want, but the
+core idea is a good one: automate compilation, packaging, distribution,
+deployment, and monitoring by writing software that operates on or
+monitors other software [Kim2016; Forsgren2018].
+
+Investment in automation pays off many times over, but only if you
+design things so that they can be automated. [Taschuk2017] lays out
+some rules for doing this, and a few others include:
+
+1.  Use the same tools as everyone else who uses your language, e.g.,
+    `pip` or `conda` for Python or `devtools` for R. (One of the
+    weaknesses of modern JavaScript is the number of incompatible
+    options for this.)
+
+2.  Organize your source files in the way your build system expects so
+    that those tools can do their job.
+
+3.  Handle errors rather than catching and discarding them
+    [Nakshatri2016].
+
+4.  Use a logging library rather than `print` commands to report what
+    your program is doing and any errors it has encountered. Logging
+    libraries allow you to enable and disable certain categories of
+    messages selectively. This is very useful during development, but
+    even more so in production, since it lets whoever is using your
+    software turn reporting on without having to rebuild anything.
+
+## Rule 8: design for testability
+
+Research software is notoriously difficult to test [Hook2009,Kanewala2014], in
+part because its developers often don't know precisely what output the code is
+supposed to produce.  (As a frustrated chemist once said to the author, "If I
+knew what the right answer was, I'd have published it already.")  It *is*
+possible to test the "other 90%" of a typical data science application—the parts
+that parse input files, clean up messy data, and so on, but only if those parts
+are designed with testing in mind.
 
 *Legacy code* is software that we're afraid to try to modify because
 it's hard to understand and things will break unexpectedly. A
@@ -297,7 +338,7 @@ function doesn't just make testing easier today. It also ensures that if
 we want to change how information is looked up in future we are certain
 that we'll only have to modify one small piece of code.
 
-## Rule 8: design as if code was data
+## Rule 9: design as if code was data
 
 The insight on which all modern computing is based is that code is just
 another kind of data. Programs are just text files, and once a program
@@ -376,37 +417,6 @@ action-at-a-distance for novices.
 > translate generalities into specifics, but their optimum balance also shifts.
 > Software that is easiest for them to understand may not be optimal for someone
 > else.
-
-## Rule 9: design for delivery
-
-Developer operations (DevOps) has become a buzzword in the last few
-years. Like "data science" or "computational thinking", the term is
-popular because people can use it to mean whatever they want, but the
-core idea is a good one: automate compilation, packaging, distribution,
-deployment, and monitoring by writing software that operates on or
-monitors other software [Kim2016; Forsgren2018].
-
-Investment in automation pays off many times over, but only if you
-design things so that they can be automated. [Taschuk2017] lays out
-some rules for doing this, and a few others include:
-
-1.  Use the same tools as everyone else who uses your language, e.g.,
-    `pip` or `conda` for Python or `devtools` for R. (One of the
-    weaknesses of modern JavaScript is the number of incompatible
-    options for this.)
-
-2.  Organize your source files in the way your build system expects so
-    that those tools can do their job.
-
-3.  Handle errors rather than catching and discarding them
-    [Nakshatri2016].
-
-4.  Use a logging library rather than `print` commands to report what
-    your program is doing and any errors it has encountered. Logging
-    libraries allow you to enable and disable certain categories of
-    messages selectively. This is very useful during development, but
-    even more so in production, since it lets whoever is using your
-    software turn reporting on without having to rebuild anything.
 
 ## Rule 10: design graphically
 
@@ -525,7 +535,11 @@ we can still strive to make what we create worthy of appreciation.
 
 [Hermans2021] Hermans F. *The Programmers Brain: What every programmer needs to know about cognition*. Manning; 2021.
 
+[Hook2009] Hook D, Kelly D. "Testing for trustworthiness in scientific software." In *Proc. 2009 ICSE Workshop on Software Engineering for Computational Science and Engineering, 2009, doi:10.1109/secse.2009.5069163.
+
 [Johnson2017] Johnson J, Finn K. *Designing User Interfaces for an Aging Population: Towards Universal Design*. Morgan Kaufmann; 2017.
+
+[Kanewala2014] Kanewala U, Bieman JM. "Testing scientific software: A systematic literature review." *Information and Software Technology*, 56(10), 2014, doi:10.1016/j.infsof.2014.05.006.
 
 [Kerievsky2004] Kerievsky J. *Refactoring to Patterns*. Addison-Wesley Professional; 2004.
 
