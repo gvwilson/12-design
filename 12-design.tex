@@ -51,7 +51,8 @@ and discussions over thirty-five years with the creators of widely-used librarie
 
 \subsection*{Acknowledgments}
 
-The author is grateful to Rebecca Barter,
+The author is grateful to Sam Albers,
+Rebecca Barter,
 Neil Brown,
 Matthias Bussonnier,
 Daniel Chen,
@@ -157,21 +158,21 @@ if I read this Python function aloud:
  def main():
      config = buildConfiguration(sys.argv)
      state = initializeState(config)
-     while config.currentTime < config.haltTime:
+!\colorbox{magenta!30}{~~~~~while config.currentTime < config.haltTime:}!
          updateState(config, state)
      report(config, state)
 \end{lstlisting}
 
 \noindent
-the comparison of the current time to the halting time in the \texttt{while} loop
+the highlighted comparison of the current time to the halting time in the \texttt{while} loop
 feels like it's at a lower level of detail than the function calls.
-I would probably rewrite this function as:
+I would probably replace the comparison with a function called something like \texttt{stillEvolving}:
 
 \begin{lstlisting}
  def main():
      config = buildConfiguration(sys.argv)
      state = initializeState(config)
-     while stillEvolving(config, state):
+!\colorbox{magenta!30}{~~~~~while stillEvolving(config, state):}!
          updateState(config, state)
      report(config, state)
 \end{lstlisting}
@@ -262,7 +263,7 @@ and that it produces the largest element in the array.
 
 If several things are closely related or frequently occur together,
 our brains combine them into a ``chunk''
-that only takes up one slot in short-term memory.
+that only takes up one slot in short-term memory \cite{Thalmann2019}.
 We can aid this by combining related values into data structures.
 For example,
 instead of storing the X, Y, and Z coordinates of points separately like this:
@@ -282,10 +283,12 @@ def enclose(p0, p1, nearness):
 \end{lstlisting}
 
 \noindent
+This allows us to thing about each point as one ``thing''.
 Where we need the individual coordinates,
 we can refer to them as \texttt{p0.X}, \texttt{p0.Y}, and so on.
-Grouping related information together also aids code evolution (Rule~4):
-if, for example, we decide to use radial coordinates instead of Cartesian coordinates,
+
+Grouping related information together also aids code evolution (Rule~4).
+If, for example, we decide to use radial coordinates instead of Cartesian coordinates,
 we can change how points are represented without changing most of the functions that pass them around.
 
 \section*{Rule 6: use common patterns}
@@ -372,9 +375,8 @@ and a few others include:
 \begin{enumerate}
 
 \item
-  Use the same tools as everyone else who uses your language,
-  e.g., \texttt{pip} or \texttt{conda} for Python or \texttt{devtools} for R.
-  (One of the weaknesses of modern JavaScript is the number of incompatible options for this.)
+  Use the same tools to build packages as everyone else who uses your language,
+  e.g., \texttt{pip} for Python or \texttt{devtools} for R.
 
 \item
   Organize your source files in the way your build system expects
@@ -598,7 +600,8 @@ Among the drawings that working programmers often find helpful are:
   (Figure~\ref{concept-map}); and
 \item
   many others,
-  such as system architecture diagrams showing the major components of an application
+  such as dataflow diagrams,
+  system architecture diagrams showing the major components of an application,
   and use case maps that show how activity flows through an architecture \cite{Reekie2006}.
 \end{itemize}
 
@@ -606,21 +609,21 @@ Among the drawings that working programmers often find helpful are:
   \centering
   \includegraphics[scale=0.6]{flowchart.pdf}
   \caption{Flowchart}
-  \label{flowchart.pdf}
+  \label{flowchart}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[scale=0.6]{er-diagram.pdf}
   \caption{Entity-relationship diagram}
-  \label{er-diagram.pdf}
+  \label{er-diagram}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[scale=0.6]{concept-map.pdf}
   \caption{Concept map}
-  \label{concept-map.pdf}
+  \label{concept-map}
 \end{figure}
 
 \section*{Rule 11: design with everyone in mind}
@@ -705,12 +708,11 @@ so too do they think about the factors that influence contribution:
 
 Figure~\ref{bicycle} is a De Rosa SK Pininfarina bicycle.
 It is not a work of art,
-but it can be analyzed and appreciated esthetically.
-I believe that programs can be like bicycles:
-useful and beautiful at the same time.
-We do not yet have as rich a vocabulary for talking about the beauty of software
-in the same way that we can talk about the beauty of bicycles or buildings,
-but we can still strive to make what we create worthy of appreciation.
+but it \emph{was} carefully designed,
+and as a result it can be analyzed and appreciated esthetically.
+Rules like the ones in this paper
+and in longer works like \cite{Budgen2020}
+may one day help us create data analyses that also deserve to be called ``beautiful''.
 
 \bibliography{12-design}
 

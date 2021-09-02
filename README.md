@@ -32,9 +32,10 @@ with the creators of widely-used libraries and applications.
 
 ### Acknowledgments
 
-The author is grateful to Rebecca Barter, Neil Brown, Matthias Bussonnier,
-Daniel Chen, Ildi Czeller, Bradford Dykes, Damien Irving, Mandip Mistry, and
-Donny Winston for feedback on early versions of this paper.
+The author is grateful to Sam Albers, Rebecca Barter, Neil Brown,
+Matthias Bussonnier, Daniel Chen, Ildi Czeller, Bradford Dykes, Damien
+Irving, Mandip Mistry, and Donny Winston for feedback on early
+versions of this paper.
 
 ## Rule 1: design after the fact
 
@@ -113,9 +114,10 @@ conceptual level. For example, if I read this Python function aloud:
              updateState(config, state)
          report(config, state)
 
-the comparison of the current time to the halting time in the `while`
-loop feels like it's at a lower level of detail than the function calls.
-I would probably rewrite this function as:
+the highlighted comparison of the current time to the halting time in
+the `while` loop feels like it's at a lower level of detail than the
+function calls.  I would probably replace the comparison with a
+function called something like `stillEvolving`:
 
      def main():
          config = buildConfiguration(sys.argv)
@@ -189,11 +191,11 @@ the largest element in the array.
 
 ## Rule 5: group related information together
 
-If several things are closely related or frequently occur together, our
-brains combine them into a "chunk" that only takes up one slot in
-short-term memory. We can aid this by combining related values into data
-structures. For example, instead of storing the X, Y, and Z coordinates
-of points separately like this:
+If several things are closely related or frequently occur together,
+our brains combine them into a "chunk" that only takes up one slot in
+short-term memory [Thalmann2019]. We can aid this by combining related
+values into data structures. For example, instead of storing the X, Y,
+and Z coordinates of points separately like this:
 
     def enclose(x0, y0, z0, x1, y1, z1, nearness):
         ...
@@ -204,8 +206,15 @@ like this:
     def enclose(p0, p1, nearness):
         ...
 
-Where we need the individual coordinates, we can refer to them as
-`p0.X`, `p0.Y`, and so on.
+This allows us to thing about each point as one ``thing''.  Where we
+need the individual coordinates, we can refer to them as `p0.X`,
+`p0.Y`, and so on.
+
+Grouping related information together also aids code evolution
+(Rule 4).  If, for example, we decide to use radial coordinates
+instead of Cartesian coordinates, we can change how points are
+represented without changing most of the functions that pass them
+around.
 
 ## Rule 6: use common patterns
 
@@ -272,10 +281,8 @@ Investment in automation pays off many times over, but only if you
 design things so that they can be automated. [Taschuk2017] lays out
 some rules for doing this, and a few others include:
 
-1.  Use the same tools as everyone else who uses your language, e.g.,
-    `pip` or `conda` for Python or `devtools` for R. (One of the
-    weaknesses of modern JavaScript is the number of incompatible
-    options for this.)
+1.  Use the same tools to build packages as everyone else who uses
+    your language, e.g., `pip` for Python or `devtools` for R.
 
 2.  Organize your source files in the way your build system expects so
     that those tools can do their job.
@@ -445,9 +452,9 @@ Among the drawings that working programmers often find helpful are:
 -   concept maps showing how the designer thinks about the overall problem
     (<a href="#concept-map">Figure 4</a>); and
 
--   many others, such as system architecture diagrams showing the major
-    components of an application and use case maps that show how
-    activity flows through an architecture [Reekie2006].
+-   many others, such as dataflow diagrams, system architecture diagrams
+    showing the major components of an application, and use case maps
+    that show how activity flows through an architecture [Reekie2006].
 
 <figure id="flowchart">
 <img src="./flowchart.png" alt="Flowchart" />
@@ -526,13 +533,12 @@ contribution:
 
 ## Conclusion
 
-<a href="#bicycle">Figure 6</a> is a De
-Rosa SK Pininfarina bicycle. It is not a work of art, but it can be
-analyzed and appreciated esthetically. I believe that programs can be
-like bicycles: useful and beautiful at the same time. We do not yet have
-as rich a vocabulary for talking about the beauty of software in the
-same way that we can talk about the beauty of bicycles or buildings, but
-we can still strive to make what we create worthy of appreciation.
+<a href="#bicycle">Figure 6</a> is a De Rosa SK Pininfarina bicycle.
+It is not a work of art, but it *was* carefully designed, and as a
+result it can be analyzed and appreciated esthetically.  Rules like
+the ones in this paper and in longer works like [Budgen2020] may one
+day help us create data analyses that also deserve to be called
+"beautiful".
 
 <figure id="bicycle">
 <img src="./derosa.jpg" alt="De Rosa bicycle" />
@@ -544,6 +550,8 @@ we can still strive to make what we create worthy of appreciation.
 [Brown2011] Brown A, Wilson G, editors. *The Architecture of Open Source Applications: Elegance, Evolution, and a Few Fearless Hacks*. Lulu; 2011. Available from: <https://aosabook.org>.
 
 [Brown2012] Brown A, Wilson G, editors. *The Architecture of Open Source Applications: Structure, Scale, and a Few More Fearless Hacks*. Lulu; 2012. Available from: <https://aosabook.org>.
+
+[Budgen2020] Budgen D.: *Software Design* (3rd ed.). Routledge; 2020, 978-1138196612.
 
 [Byckling2005] Byckling P, Gerdt P, Sajaniemi J. "Roles of Variables in Object-Oriented Programming". In: *Proc. OOPSLA'05*. ACM; 2005.
 
@@ -594,6 +602,8 @@ we can still strive to make what we create worthy of appreciation.
 [Smalls2021] Smalls D, Wilson G. "Ten quick tips for staying safe online." *PLoS Computational Biology*. 2021;17(3):e1008563. doi:10.1371/journal.pcbi.1008563.
 
 [Taschuk2017] Taschuk M, Wilson G. "Ten Simple Rules for Making Research Software More Robust." *PLoS Computational Biology*. 2017;13(4). doi:10.1371/journal.pcbi.1005412.
+
+[Thalmann2019] Thalmann M, Souza AS, Oberauer K.: "How does chunking help working memory?" *Journal of Experimental Psychology: Learning, Memory, and Cognition*, 45(1), 2019, doi:10.1037/xlm0000578.
 
 [Tichy2010] Tichy W. "The Evidence for Design Patterns." In: Oram A, Wilson G, editors. *Making Software*. O'Reilly; 2010.
 
