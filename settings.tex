@@ -6,12 +6,6 @@
 % Use adjustwidth environment to exceed column width (see example table in text)
 \usepackage{changepage}
 
-% Use Unicode characters when possible
-% \usepackage[utf8x]{inputenc}
-
-% textcomp package and marvosym package for additional characters
-% \usepackage{textcomp,marvosym}
-
 % cite package, to clean up citations in the main text. Do not remove.
 \usepackage{cite}
 
@@ -30,6 +24,13 @@
 
 % array package and thick rules for tables
 \usepackage{array}
+
+% Use listings instead of verbatim
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily,
+  escapeinside=!!
+}
 
 % enumerate package lets us use letters instead of numbers
 \usepackage{enumerate}

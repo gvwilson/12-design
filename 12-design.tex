@@ -153,28 +153,28 @@ and ask whether all the steps are at the same conceptual level.
 For example,
 if I read this Python function aloud:
 
-\begin{verbatim}
+\begin{lstlisting}
  def main():
      config = buildConfiguration(sys.argv)
      state = initializeState(config)
      while config.currentTime < config.haltTime:
          updateState(config, state)
      report(config, state)
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 the comparison of the current time to the halting time in the \texttt{while} loop
 feels like it's at a lower level of detail than the function calls.
 I would probably rewrite this function as:
 
-\begin{verbatim}
+\begin{lstlisting}
  def main():
      config = buildConfiguration(sys.argv)
      state = initializeState(config)
      while stillEvolving(config, state):
          updateState(config, state)
      report(config, state)
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 This rewrite saves the reader
@@ -267,19 +267,19 @@ We can aid this by combining related values into data structures.
 For example,
 instead of storing the X, Y, and Z coordinates of points separately like this:
 
-\begin{verbatim}
+\begin{lstlisting}
 def enclose(x0, y0, z0, x1, y1, z1, nearness):
     ...
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 we can store each point's coordinates in a structure
 and write our code like this:
 
-\begin{verbatim}
+\begin{lstlisting}
 def enclose(p0, p1, nearness):
     ...
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 Where we need the individual coordinates,
@@ -318,13 +318,13 @@ our brains try so hard to match inputs to patterns that they will sometimes misc
 For example,
 it once took me the better part of an hour to spot the error in this code:
 
-\begin{verbatim}
+\begin{lstlisting}
  for (i=0; i<a.width; i++) {
      for (j=0; i<a.height; j++) {
          a[i][j] = cos(abs(a[i][j]) - lemaitre(b_norm, a[j][i]))
      }
  }
-\end{verbatim}
+\end{lstlisting}
 
 The problem is in the second line,
 which mistakenly uses the variable \texttt{i} where it should use the variable \texttt{j}.
@@ -347,9 +347,9 @@ we should write programs that maximize the ratio of unique code to boilerplate.
 In most modern languages,
 the five lines shown above can be written as:
 
-\begin{verbatim}
+\begin{lstlisting}
 a = cos(abs(a) - lemaitre(b_norm, a.transpose()))
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 This version is probably as efficient as the first,
@@ -501,14 +501,14 @@ For example,
 if we want to count the number of positive values in an array,
 we can write:
 
-\begin{verbatim}
+\begin{lstlisting}
 def count_positive(array):
     number = 0
     for value in array:
         if value >= 0:
             number = number + 1
     return number
-\end{verbatim}
+\end{lstlisting}
 
 If we want to count the number that are negative,
 we could write a \texttt{count\_negative} function that differed by only one character
@@ -516,29 +516,29 @@ we could write a \texttt{count\_negative} function that differed by only one cha
 Alternatively,
 we could write a generic function like this:
 
-\begin{verbatim}
+\begin{lstlisting}
 def count_interesting(array, test):
     number = 0
     for value in array:
         if test(value):
             number = number + 1
     return number
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 then put each test in a function like this:
 
-\begin{verbatim}
+\begin{lstlisting}
 def is_positive(value):
     return value >= 0
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 and then write something like:
 
-\begin{verbatim}
+\begin{lstlisting}
 count_interesting(pressures, is_positive)
-\end{verbatim}
+\end{lstlisting}
 
 Many features in modern languages,
 such as lazy evaluation in R or decorators in Python,
