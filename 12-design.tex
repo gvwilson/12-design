@@ -53,6 +53,7 @@ and discussions over thirty-five years with the creators of widely-used librarie
 
 The author is grateful to Sam Albers,
 Rebecca Barter,
+John Blischak,
 Neil Brown,
 Matthias Bussonnier,
 Daniel Chen,
@@ -136,10 +137,9 @@ including the ``tidyverse'' family of packages in R \cite{Wickham2017}.
 Where a mathematician would write $f(g(h(x)))$,
 a programmer using pipes would write $h(x) | g | f$
 so that the functions' names appear in the order in which they are applied.
-This may seem like a small change,
-but aligning the reading order with execution order
-makes the overall effect easier to understand
-because the reader only has to ``carry forward'' one piece of information at a time.
+As a result,
+the reader only has to hold one piece of information in their head at a time,
+which frees up more space for worrying about other things.
 
 \section*{Rule 3: design in coherent levels}
 
@@ -182,9 +182,21 @@ This rewrite saves the reader
 from having to jump between two different levels of detail
 while they're trying to figure out what this function does.
 
+\begin{quotation}
+  \noindent
+  While the final design should be levelled,
+  the process used to create it almost certainly won't be.
+  Studies of expert designers have found that
+  they constantly drill down from high-level ideas to concrete implications
+  to find out whether their plan will work or not \cite{Schon1984}.
+  To the best of the author's knowledge,
+  no currently-available software design tools or methodologies do a better job of capturing these ``why not'' insights
+  than blog posts or lengthy comments in code.
+\end{quotation}
+
 \section*{Rule 4: design for evolution}
 
-The change shown above also makes future evolution easier.
+Replacing a low-level test with a function as shown above also makes future evolution easier.
 If we decide that the simulation should run until a specified time
 \emph{or} until its state has stabilized,
 we can make that change in the \texttt{stillEvolving} function
@@ -310,11 +322,11 @@ just as dividing this paper into sections and a bibliography
 that are consistent with what you've read before
 makes it easier to read.
 
-Patterns can be found at all scales of programming,
-from ``most valuable'' variables \cite{Byckling2005}
-and doubly-nested loops to process the elements of two-dimensional arrays
-through the filter-group-summarize pattern that is common in data analysis,
-to the communicating microservices of today's online applications.
+Patterns can be found at all scales of programming:
+``most valuable'' variables \cite{Byckling2005},
+doubly-nested loops to process the elements of two-dimensional arrays,
+and the filter-group-summarize pattern common in data analysis
+are just three examples.
 But design patterns can be a mixed blessing.
 First,
 our brains try so hard to match inputs to patterns that they will sometimes misclassify things.
@@ -381,9 +393,6 @@ and a few others include:
 \item
   Organize your source files in the way your build system expects
   so that those tools can do their job.
-
-\item
-  Handle errors rather than catching and discarding them \cite{Nakshatri2016}.
 
 \item
   Use a logging library rather than \texttt{print} commands

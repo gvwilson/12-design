@@ -32,10 +32,9 @@ with the creators of widely-used libraries and applications.
 
 ### Acknowledgments
 
-The author is grateful to Sam Albers, Rebecca Barter, Neil Brown,
-Matthias Bussonnier, Daniel Chen, Ildi Czeller, Bradford Dykes, Damien
-Irving, Mandip Mistry, and Donny Winston for feedback on early
-versions of this paper.
+The author is grateful to Sam Albers, Rebecca Barter, John Blischak, Neil Brown,
+Matthias Bussonnier, Daniel Chen, Ildi Czeller, Bradford Dykes, Damien Irving,
+Mandip Mistry, and Donny Winston for feedback on early versions of this paper.
 
 ## Rule 1: design after the fact
 
@@ -86,17 +85,16 @@ takes only a handful parameters, reduce the *cognitive load*. Similarly,
 defining default values for most or all of the parameters will allow
 people to ignore the details most of the time.
 
-A complementary approach is to create families of functions that all
-take similar inputs and outputs and then combine them using *pipes*. The
-pipe operator is one of Unix's key contributions to computing
-[Kernighan2019], and the idea has been adopted by many other
-programming systems, including the "tidyverse" family of packages in R
-[Wickham2017]. Where a mathematician would write <em>f(g(h(x)))</em>, a
-programmer using pipes would write <em>h(x)|g|f</em> so that the functions'
-names appear in the order in which they are applied. This may seem like
-a small change, but aligning the reading order with execution order
-makes the overall effect easier to understand because the reader only
-has to "carry forward" one piece of information at a time.
+A complementary approach is to create families of functions that all take
+similar inputs and outputs and then combine them using *pipes*. The pipe
+operator is one of Unix's key contributions to computing [Kernighan2019], and
+the idea has been adopted by many other programming systems, including the
+"tidyverse" family of packages in R [Wickham2017]. Where a mathematician would
+write <em>f(g(h(x)))</em>, a programmer using pipes would write
+<em>h(x)|g|f</em> so that the functions' names appear in the order in which they
+are applied.  As a result, the reader only has to hold one piece of information
+in their head at a time, which frees up more space for worrying about other
+things.
 
 ## Rule 3: design in coherent levels
 
@@ -130,12 +128,20 @@ This rewrite saves the reader from having to jump between two different
 levels of detail while they're trying to figure out what this function
 does.
 
+> While the final design should be levelled, the process used to create it
+> almost certainly won't be.  Studies of expert designers have found that they
+> constantly drill down from high-level ideas to concrete implications to find
+> out whether their plan will work or not [Schon1984].  To the best of the
+> author's knowledge, no currently-available software design tools or
+> methodologies do a better job of capturing these "why not" insights than blog
+> posts or lengthy comments in code.
+
 ## Rule 4: design for evolution
 
-The change shown above also makes future evolution easier. If we decide
-that the simulation should run until a specified time *or* until its
-state has stabilized, we can make that change in the `stillEvolving`
-function without modifying anything else.
+Replacing a low-level test with a function as shown above also makes future
+evolution easier.  If we decide that the simulation should run until a specified
+time *or* until its state has stabilized, we can make that change in the
+`stillEvolving` function without modifying anything else.
 
 Hiding details like this is another general rule of software design.
 Software changes over time because our problems change, our environments
@@ -231,14 +237,13 @@ widely-understood patterns also makes code more comprehensible, just as dividing
 this paper into sections and a bibliography that are consistent with what you've
 read before makes it easier to read.
 
-Patterns can be found at all scales of programming, from "most valuable"
-variables [Byckling2005] and doubly-nested loops to process the
-elements of two-dimensional arrays through the filter-group-summarize
-pattern that is common in data analysis, to the communicating
-microservices of today's online applications. But design patterns can be
-a mixed blessing. First, our brains try so hard to match inputs to
-patterns that they will sometimes misclassify things. For example, it
-once took me the better part of an hour to spot the error in this code:
+Patterns can be found at all scales of programming: "most valuable" variables
+[Byckling2005], doubly-nested loops to process the elements of two-dimensional
+arrays, and the filter-group-summarize pattern common in data analysis are just
+three examples.  But design patterns can be a mixed blessing. First, our brains
+try so hard to match inputs to patterns that they will sometimes misclassify
+things. For example, it once took me the better part of an hour to spot the
+error in this code:
 
      for (i=0; i<a.width; i++) {
          for (j=0; i<a.height; j++) {
@@ -287,10 +292,7 @@ some rules for doing this, and a few others include:
 2.  Organize your source files in the way your build system expects so
     that those tools can do their job.
 
-3.  Handle errors rather than catching and discarding them
-    [Nakshatri2016].
-
-4.  Use a logging library rather than `print` commands to report what
+3.  Use a logging library rather than `print` commands to report what
     your program is doing and any errors it has encountered. Logging
     libraries allow you to enable and disable certain categories of
     messages selectively. This is very useful during development, but
@@ -584,8 +586,6 @@ day help us create data analyses that also deserve to be called
 [Meyer1994] Meyer B. *Object-Oriented Software Construction*. Prentice-Hall; 1994.
 
 [Miller1956] Miller GA. "The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information." *Psychological Review*. 1956;63(2):81–97. doi:10.1037/h0043158.
-
-[Nakshatri2016] Nakshatri S, Hegde M, Thandra S. "Analysis of exception handling patterns in Java projects." In: *Proc. MSR'13*. ACM; 2016.
 
 [Parnas1986] Parnas DL, Clements PC. "A Rational Design Process: How and Why to Fake It". *Transactions on Software Engineering*. 1986;SE-12(2):251–257. doi:10.1109/tse.1986.6312940.
 
