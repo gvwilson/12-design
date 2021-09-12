@@ -1,0 +1,6 @@
+To whom it may concern,
+
+I wish to submit "Twelve Quick Tips for Software Design" to PLoS Computational Biology. Please note that I will be submitting a shortened and less technical coverage of some of the same material for inclusion in an anthology titled "The Future of Data Science" being assembled by the Data Science by Design community (https://datasciencebydesign.org/); that submission will be covered by a Creative Commons license, and I do not anticipate any conflicts or restrictions.
+
+Thank you for your consideration,
+Dr. Greg Wilson

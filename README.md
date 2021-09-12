@@ -1,4 +1,4 @@
-# Twelve Software Design Tips for Data Scientists
+# Twelve Quick Tips for Software Design
 
 Greg Wilson | http://third-bit.com
 
@@ -25,10 +25,23 @@ many big programs begin life as small scripts, knowing how to design in the
 large helps ensure that what's done in the small is pointed in the right
 direction.
 
-This paper describes a dozen rules that can help data scientists design
-large programs. These rules are taken from published sources, the
+This paper describes a dozen tips that can help data scientists design
+large programs. These tips are taken from published sources, the
 author's personal experience, and discussions over thirty-five years
 with the creators of widely-used libraries and applications.
+
+> - Tip 1: design after the fact.
+> - Tip 2: design for people's cognitive capacity.
+> - Tip 3: design in coherent levels.
+> - Tip 4: design for evolution.
+> - Tip 5: group related information together.
+> - Tip 6: use common patterns.
+> - Tip 7: design for delivery.
+> - Tip 8: design for testability.
+> - Tip 9: design as if code was data.
+> - Tip 10: design graphically.
+> - Tip 11: design with everyone in mind.
+> - Tip 12: design for contribution.
 
 ### Acknowledgments
 
@@ -36,7 +49,7 @@ The author is grateful to Sam Albers, Rebecca Barter, John Blischak, Neil Brown,
 Matthias Bussonnier, Daniel Chen, Ildi Czeller, Bradford Dykes, Damien Irving,
 Mandip Mistry, and Donny Winston for feedback on early versions of this paper.
 
-## Rule 1: design after the fact
+## Tip 1: design after the fact.
 
 When we are doing research, we often don't know what the code should do
 tomorrow until we've seen today's results. It's therefore often
@@ -51,7 +64,7 @@ changing its externally-visible behavior. [Fowler2018] describes common
 refactorings, such as "extract function" (i.e., move some code out of
 the function its in and put it in a new function so that it can be
 called separately) and "combine parameters into object" (which we we
-will revisit in Rule 5). Just as the tidying steps in a data pipeline
+will revisit in Tip 5). Just as the tidying steps in a data pipeline
 either convert messy data to a tidy layout or move the data from one
 tidy layout to another [Wickham2017], most refactoring operations move
 code toward or between well-defined patterns [Kerievsky2004].
@@ -61,12 +74,12 @@ code toward or between well-defined patterns [Kerievsky2004].
 > *challenge and response*: the only way to understand why something
 > works the way it does is to understand the problems that existed at
 > the time it was written and the tools that were available then.
-> Neither programming languages nor existing graphical notations (Rule 10)
+> Neither programming languages nor existing graphical notations (Tip 10)
 > are particularly good at capturing this, and while many tools have
 > been written for tracking and managing requirements, none have worked
 > well enough that the average programmer would voluntarily adopt them.
 
-## Rule 2: design for people's cognitive capacity
+## Tip 2: design for people's cognitive capacity.
 
 Just as computers have hard drives and RAM, human brains have long-term
 and short-term memory [Hermans2021]. We only have conscious access to
@@ -75,7 +88,7 @@ early estimates were that the average person could hold 7±2 items
 in short-term memory at once [Miller1956], and more recent estimates
 put its capacity closer to 4±1.
 
-The second rule of software design is therefore to ensure that the
+The second tip for software design is therefore to ensure that the
 number of "things" someone has to remember at any time in order to
 understand the code they're looking at fits in short-term memory. For
 example, if a function takes 37 parameters then the odds are slim that
@@ -96,12 +109,12 @@ are applied.  As a result, the reader only has to hold one piece of information
 in their head at a time, which frees up more space for worrying about other
 things.
 
-## Rule 3: design in coherent levels
+## Tip 3: design in coherent levels.
 
-Another rule for designing functions is that each function should be
+Another tip for designing functions is that each function should be
 short, shallow, and single-purpose, i.e., it should implement a single
 mental operation so that it only takes up a single slot in short-term
-memory. The easiest way to check if this rule is being followed is to
+memory. The easiest way to check if this tip is being followed is to
 read the function aloud and ask whether all the steps are at the same
 conceptual level. For example, if I read this Python function aloud:
 
@@ -136,7 +149,7 @@ does.
 > methodologies do a better job of capturing these "why not" insights than blog
 > posts or lengthy comments in code.
 
-## Rule 4: design for evolution
+## Tip 4: design for evolution.
 
 Replacing a low-level test with a function as shown above also makes future
 evolution easier.  If we decide that the simulation should run until a specified
@@ -195,7 +208,7 @@ previous example, a new function's pre-conditions could be that it takes
 any array of numbers, not just one that is sorted, and that it produces
 the largest element in the array.
 
-## Rule 5: group related information together
+## Tip 5: group related information together.
 
 If several things are closely related or frequently occur together,
 our brains combine them into a "chunk" that only takes up one slot in
@@ -217,12 +230,12 @@ need the individual coordinates, we can refer to them as `p0.X`,
 `p0.Y`, and so on.
 
 Grouping related information together also aids code evolution
-(Rule 4).  If, for example, we decide to use radial coordinates
+(Tip 4).  If, for example, we decide to use radial coordinates
 instead of Cartesian coordinates, we can change how points are
 represented without changing most of the functions that pass them
 around.
 
-## Rule 6: use common patterns
+## Tip 6: use common patterns.
 
 Some chunks appear so often that we call them "patterns" and give them
 names. For example, parasitism and symbiosis take many forms, and it's
@@ -264,7 +277,7 @@ the third line was the most complicated, the error had to be there.
 > "color" the correct way or the British way; what matters is the
 > predictability that comes from consistency.
 
-This example illustrates a corollary to Rule 2: we should write programs
+This example illustrates a corollary to Tip 2: we should write programs
 that maximize the ratio of unique code to boilerplate. In most modern
 languages, the five lines shown above can be written as:
 
@@ -273,7 +286,7 @@ languages, the five lines shown above can be written as:
 This version is probably as efficient as the first, but it is much
 easier to read and therefore much less likely to mislead.
 
-## Rule 7: design for delivery
+## Tip 7: design for delivery.
 
 Developer operations (DevOps) has become a buzzword in the last few
 years. Like "data science" or "computational thinking", the term is
@@ -299,7 +312,7 @@ some rules for doing this, and a few others include:
     even more so in production, since it lets whoever is using your
     software turn reporting on without having to rebuild anything.
 
-## Rule 8: design for testability
+## Tip 8: design for testability.
 
 Research software is notoriously difficult to test [Hook2009,Kanewala2014], in
 part because its developers often don't know precisely what output the code is
@@ -347,7 +360,7 @@ function doesn't just make testing easier today. It also ensures that if
 we want to change how information is looked up in future we are certain
 that we'll only have to modify one small piece of code.
 
-## Rule 9: design as if code was data
+## Tip 9: design as if code was data.
 
 The insight on which all modern computing is based is that code is just
 another kind of data. Programs are just text files, and once a program
@@ -432,7 +445,7 @@ action-at-a-distance for novices.
 <figcaption>Figure 1: Comprehension curves</figcaption>
 </figure>
 
-## Rule 10: design graphically
+## Tip 10: design graphically.
 
 Many formal graphical notations for software have been designed over the
 years. The most famous is the Unified Modeling Language (UML), but in
@@ -473,7 +486,7 @@ Among the drawings that working programmers often find helpful are:
 <figcaption>Figure 4: Concept map</figcaption>
 </figure>
 
-## Rule 11: design with everyone in mind
+## Tip 11: design with everyone in mind.
 
 If the last few years have taught us anything about software, it's that
 fairness, privacy, and security cannot be sprinkled on after the fact.
@@ -509,7 +522,7 @@ software accessible to people who are neurodivergent, use screen
 readers, are dyslexic, have physical or motor challenges, or are hard of
 hearing.
 
-## Rule 12: design for contribution
+## Tip 12: design for contribution.
 
 Study after study has shown that diversity improves outcomes in fields
 from business to healthcare because many perspectives make for fewer
@@ -537,7 +550,7 @@ contribution:
 
 <a href="#bicycle">Figure 6</a> is a De Rosa SK Pininfarina bicycle.
 It is not a work of art, but it *was* carefully designed, and as a
-result it can be analyzed and appreciated esthetically.  Rules like
+result it can be analyzed and appreciated esthetically.  Tips like
 the ones in this paper and in longer works like [Budgen2020] may one
 day help us create data analyses that also deserve to be called
 "beautiful".
