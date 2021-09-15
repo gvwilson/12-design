@@ -225,7 +225,7 @@ like this:
     def enclose(p0, p1, nearness):
         ...
 
-This allows us to thing about each point as one ``thing''.  Where we
+This allows us to think about each point as one ``thing''.  Where we
 need the individual coordinates, we can refer to them as `p0.X`,
 `p0.Y`, and so on.
 
