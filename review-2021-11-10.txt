@@ -1,0 +1,45 @@
+Twelve Quick Tips for Software Design is a paper that, with some major revisions, could be a very useful one for people looking to scale up their software to the next level, for example, long-term research associates who have been analyzing the same types of data for several years and want to level it up to make it easier to add features and apply to new datasets. As it, I think the paper requires substantial revision to tighten up the message and utility.
+
+I'm somewhat uncertain when to apply these tips. Surely, not every script needs to consider a software license, and certainly much exploratory analysis code is repetitive and procedural while getting a handle on the function. I think this paper is arguing that even the simplest research scripts should take these tips into account, but I don't think that is practical given the speed and experimentation of research. This is partially covered in "Tip 1: design after the fact", which states that it should be applied before the next person to use the software takes over. But current research cycles don't build this not-inconsiderable time in. Often, research software needs a real investment by the PI for it to turn into something more generically useful. It could take 3-4 months to do a proper refactoring, depending on the size of the application, and that's time not spent working on the next grant!
+
+The author may certainly disagree with me, but it would be nice to see an acknowledgement of this current state of research software, perhaps in the discussion. The paper would then also serve the double duty of justifying why the individual needs to spend so much time doing something that, from the outside, looks like very little.
+
+(One suggestion would be to do this refactoring as a mechanism to understand code that's been passed off to you, which is a situation I think most computational scientists have been in and could relate to.)
+
+Who is this paper written for? If it's people who haven't been formally trained in computing, there is a lot of jargon. Most jargon is explained, but it is DENSE. On page 5, you throw out "most valuable variables" and "filter-group-summarize" without definition, things I've never heard of before. I got lost in the "design by contract" section in Tip 4 and had to re-read it several times.
+
+> If design by contract is followed, then a replacement for this function can weaken the
+> pre-conditions so that it handles a larger set of inputs and/or strengthen the
+> post-conditions so that it produces a narrower set of outputs, but not vice versa.
+
+This may benefit from a re-write. Another section that got very deep was Tip 8, getting into the weeds with ways to design a function to get species info. For example, you refer casually to modules here, which is a very 'big software' concept that you don't define until almost the end of the paper. Overall, I would consider your audience and ensure that the flow and jargon is at an appropriate level.
+
+Finally, your conclusion, while cute, I don't know if it necessarily serves the paper well. I can think of ways to make it fit better: for example if you applied some of your tips to elements of the bicycle's construction (though that angle of seat to handlebars would be hell on my back, so 'design for everyone else' is kind of out the window). Ultimately though, the point of the paper is not to write aesthetically beautiful code. The point is to not get lost in the N^2 connections as you're writing larger software and your conclusion should reflect that.
+
+Smaller notes:
+
+Page 3: I don't understand this statement: "To the best of the author’s
+knowledge, no currently-available software design tools or methodologies do
+a better job of capturing these “why not” insights than blog posts or lengthy
+comments in code." Are you suggesting the software developer write a blog post?
+
+Page 5: this is a very limited view of DevOps, which encompasses a series of behaviours to bring code to fruition faster, but does not necessarily involve automation.
+
+Page 7: the "second insight" looks like documentation to me, so I'm not sure what the following points refer to.
+
+Figure 4: it would be nice to have a short statement to explain what each diagram is best used for.
+
+Page 10: being able to erase data may be required by law, for example the GDPR in the EU requires it for all public-facing applications.
+
+----
+
+I suggest to rename the first tip to better reflect the tip description which is more about iterative and flexible processes
+
+Tips 11 &12 are covering very important aspects around diversity and inclusion in the design process to facilitate contributions and prioritizing privacy. While this is great and invites software designers to consider these aspects from the very early stages, I think involving different views/expertises in the first stages design process maximizes chances of designing for contribution and embedding privacy and data protection aspects.
+I'd then focus on co-design instead of designing "with everyone in mind".
+
+One other important aspect that I thought was missing is the dependency on versions/packages ..
+
+Minor comments: there a a couple of incomplete sentences like: documentation tools that extract specially-formatted comments and create cross-referenced manual pages; and
+
+ 
