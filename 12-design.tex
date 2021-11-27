@@ -51,18 +51,18 @@ these tips may help.
 
 \begin{itemize}
   \itemsep0em
-  \item Tip 1: design after the fact.
-  \item Tip 2: design for people's cognitive capacity.
-  \item Tip 3: design in coherent levels.
-  \item Tip 4: design for evolution.
-  \item Tip 5: group related information together.
-  \item Tip 6: use common patterns.
-  \item Tip 7: design for delivery.
-  \item Tip 8: design for testability.
-  \item Tip 9: design as if code was data.
-  \item Tip 10: design graphically.
-  \item Tip 11: design with everyone in mind.
-  \item Tip 12: design for contribution.
+  \item[] Tip 1: design after the fact.
+  \item[] Tip 2: design for people's cognitive capacity.
+  \item[] Tip 3: design in coherent levels.
+  \item[] Tip 4: design for evolution.
+  \item[] Tip 5: group related information together.
+  \item[] Tip 6: use common patterns.
+  \item[] Tip 7: design for delivery.
+  \item[] Tip 8: design for testability.
+  \item[] Tip 9: design as if code was data.
+  \item[] Tip 10: design graphically.
+  \item[] Tip 11: design with everyone in mind.
+  \item[] Tip 12: design for contribution.
 \end{itemize}
 
 \subsection*{Acknowledgments}
@@ -91,7 +91,7 @@ until we've seen today's results.
 It's therefore often pointless to invest as much in up-front planning for our software
 as we would in drawing up blueprints for a building.
 But this isn't a license to create a tangled mess:
-we can and should make it look as though we knew what we were going to do in advance
+we can and should make it \emph{look} as though we had a plan
 so that the next person who has to read our code will be able to understand it \cite{Parnas1986}.
 
 \emph{Refactoring} is the process of reorganizing or rewriting code
@@ -141,10 +141,11 @@ that someone will remember them all and put them in the right order
 without a lot of trial and error.
 Breaking the function into pieces,
 each of which takes only a handful parameters,
-reduce the \emph{cognitive load}.
+reduces the \emph{cognitive load}.
 Similarly,
-defining default values for most or all of the parameters
-will allow people to ignore the details most of the time.
+defining default values for parameters
+(e.g., ``black'' as a default font color)
+allows people not to worry about them most of the time.
 
 A complementary approach is to create families of functions
 that all take similar inputs and outputs
@@ -276,10 +277,14 @@ then the new version might reject some inputs that the original version would ac
 Similarly,
 a new version of the function can only \emph{strengthen} the post-conditions,
 i.e.,
-make \emph{more} guarantees about its outputs.
+make \emph{more} guarantees about its outputs
+so that the values the new version produces are a subset of the values the old version could produce.
+For example,
+if the old version of the function returned positive numbers,
+the new version could guarantee to return positive numbers in the range zero to one,
+but could \emph{not} return negative numbers as well as positive ones.
 This rule ensures that anything using the old function's output
 will still be able to handle everything the new one produces.
-Following these two rules ensures that new releases don't break programs built with old ones.
 
 \section*{Tip 5: group related information together.}
 
@@ -296,7 +301,7 @@ def enclose(x0, y0, z0, x1, y1, z1, nearness):
 \end{lstlisting}
 
 \noindent
-we can store each point's coordinates in a structure
+we can store each point's coordinates in an object
 and write our code like this:
 
 \begin{lstlisting}
@@ -316,11 +321,6 @@ we can change how points are represented without changing most of the functions 
 \section*{Tip 6: use common patterns.}
 
 Some chunks appear so often that we call them ``patterns'' and give them names.
-For example,
-parasitism and symbiosis take many forms,
-and it's impossible to draw a precise boundary between them,
-but they are powerful ideas that help us make sense of the world.
-
 Good programmers use \emph{design patterns} to structure their code,
 both to reduce the amount of thinking they have to do
 and because these patterns have proven to be useful in the past.
@@ -331,6 +331,14 @@ Conforming to widely-understood patterns also makes code more comprehensible,
 just as dividing this paper into sections and a bibliography
 that are consistent with what you've read before
 makes it easier to read.
+
+\begin{mdframed}
+  \noindent
+  Patterns don't have to be precisely defined in order to be useful.
+  A classic example is concept of a porch \cite{Brand1995}:
+  two people might disagree over whether a specific structure is one or not,
+  but the idea is still useful.
+\end{mdframed}
 
 Patterns can be found at all scales of programming.
 For example,
@@ -634,7 +642,7 @@ Among the drawings that working programmers often find helpful are:
   \label{concept-map}
 \end{figure}
 
-\section*{Tip 11: design with everyone in mind.}
+\section*{Tip 11: design with everyone.}
 
 If the last few years have taught us anything about software,
 it's that fairness, privacy, and security cannot be sprinkled on after the fact.
