@@ -38,7 +38,7 @@ invariably produce software that behaves in unexpected (usually unfortunate) way
 and cannot be modified without heroic effort.
 
 This paper presents a dozen tips that can help data scientists design large programs.
-Thee tips are taken from published sources like \cite{Kernighan1999,Budgen2020},
+These tips are taken from published sources like \cite{Kernighan1999,Budgen2020},
 the author's personal experience,
 and discussions over thirty-five years with the creators of widely-used libraries and applications.
 They aren't always appropriate---for example,
@@ -76,6 +76,7 @@ Daniel Chen,
 Ildi Czeller,
 Bradford Dykes,
 Damien Irving,
+Peter Lee,
 Mandip Mistry,
 Julia Silge,
 Morgan Taschuk,
@@ -97,7 +98,7 @@ so that the next person who has to read our code will be able to understand it \
 without changing its externally-visible behavior.
 \cite{Fowler2018} describes common refactorings,
 such as ``extract function''
-(i.e., move some code out of the function its in
+(i.e., move some code out of the function it is in
 and put it in a new function so that it can be called separately)
 and ``combine parameters into object''
 (which we we will revisit in Tip~5).
@@ -129,9 +130,9 @@ early estimates were that the average person could hold
 $7{\pm}2$ items in short-term memory at once \cite{Miller1956},
 and more recent estimates put its capacity closer to $4{\pm}1$.
 
-The second tip for software design is therefore
-to ensure that the number of ``things'' someone has to remember at any time
-in order to understand the code they're looking at
+This limitation leads to the second tip for software design:
+to ensure that the number of things someone has to remember at any time
+in order to understand the code
 fits in short-term memory.
 For example,
 if a function takes 37 parameters
@@ -227,27 +228,17 @@ More realistically,
 a change in one place should only require a small number of changes
 in a few predictable places.
 
-Software designers achieve this through \emph{information hiding}
-and \emph{loose coupling}:
-
-\begin{itemize}
-
-\item
-  \emph{Information hiding} means
-  putting the data that part of a program needs to do its job in one place,
-  and only accessing it through a small set of functions.
-  Doing this makes no difference to the computer---by the time it runs the program,
-  it's all just a bunch of instructions---but
-  people need to understand the program,
-  not execute it.
-
-\item
-  Doing this allows \emph{loose coupling},
-  i.e.,
-  those pieces of software can be combined in many different ways
-  because none of them depends on the internals of any of the others.
-
-\end{itemize}
+Software designers achieve this in two ways.
+\emph{Information hiding} means
+putting the data each part of a program needs in one place,
+and only accessing that data through a small set of functions.
+Doing this reduces cognitive load
+by allowing people to focus on one part of the program at a time.
+\emph{Loose coupling} means making those parts independent of one another
+so that they can be combined in many different ways.
+Again,
+one of the reasons the Unix command line and R's tidyverse have been so successful
+is how easily their elements can be rearranged to do different things.
 
 Programmers usually implement these principles
 by separating \emph{interface} from \emph{implementation}.
@@ -650,7 +641,7 @@ it's that fairness, privacy, and security cannot be sprinkled on after the fact.
 For example,
 if a program is initially designed in a way that allows every user to see everyone else's data,
 adding privacy controls later will be expensive and almost certainly buggy.
-Programmers to this as the Principle of Least Privilege:
+This is called the \emph{Principle of Least Privilege}:
 every component in the system should require as few permissions as possible
 for as short as possible.
 
