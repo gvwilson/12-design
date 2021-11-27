@@ -1,0 +1,9 @@
+- Clarified the intended audience.
+- Clarified the scope: it is not for every piece of software, but for larger and more complex ones.
+- Made several sections less dense. (Got junior colleagues with bioinformatics backgrounds to review.)
+- Removed the cute conclusion.
+- Removed confusing wording about capturing insights.
+- Revised description of DevOps.
+- Added mention of data erasure being legally required in some jurisdictions.
+- Changed title of final tip to better reflect goal of inclusivity.
+- Fixed incomplete sentences and a few typos.

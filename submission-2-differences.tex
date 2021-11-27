@@ -1,6 +1,10 @@
 \documentclass[10pt,letterpaper]{article}
 \input{settings}
 
+\usepackage{soul}
+\newcommand{\DIFadd}[1]{\textbf{#1}}
+\newcommand{\DIFdel}[1]{\st{#1}}
+
 \begin{document}
 \vspace*{0.2in}
 
@@ -23,10 +27,10 @@ Most people can lift one kilogram,
 but would struggle to lift one hundred,
 and could not lift a thousand without planning and support.
 Similarly,
-many researchers who can write a few lines of Python, R, or MATLAB to create a plot
-struggle to create programs that are a few hundred lines long,
-and don't know where to start designing an application made up of
-dozens or hundreds of files or packages.
+\DIFadd{many researchers who} can write a few lines of Python, R, or MATLAB to create a plot
+struggle to create \DIFadd{programs that are} a few hundred lines long,
+and \DIFadd{don't} know where to start
+\DIFadd{designing an application made up of dozens or hundreds of files} or packages.
 
 The core challenge is that
 \emph{programming in the large} is qualitatively different from \emph{programming in the small}.
@@ -34,20 +38,20 @@ as the number of pieces in a program grows,
 the number of possible interactions between those pieces grows much more quickly
 because $N$ components can be paired in $N^2$ ways.
 Programmers who don't manage this complexity
-invariably produce software that behaves in unexpected (usually unfortunate) ways
+\DIFadd{invariably produce} software that behaves in unexpected (usually unfortunate) ways
 and cannot be modified without heroic effort.
 
-This paper presents a dozen tips that can help data scientists design large programs.
-These tips are taken from published sources like \cite{Kernighan1999,Budgen2020},
+\DIFadd{This paper presents} a dozen tips that can help data scientists design large programs.
+These tips are taken from published sources \DIFadd{like \cite{Kernighan1999,Budgen2020}},
 the author's personal experience,
 and discussions over thirty-five years with the creators of widely-used libraries and applications.
-They aren't always appropriate---for example,
+\DIFadd{They aren't always appropriate---for example,
 short scripts written for exploratory data analysis
 don't need to worry about unit testing---but
 if you find yourself sketching data structures on the whiteboard,
 thinking about how different configuration options interact,
 or wondering how you're going to support old releases while working on the new one,
-these tips may help.
+these tips may help.}
 
 \begin{itemize}
   \itemsep0em
@@ -76,14 +80,14 @@ Daniel Chen,
 Ildi Czeller,
 Bradford Dykes,
 Damien Irving,
-Peter Lin,
-Varun Lodaya,
+\DIFadd{Peter Lin},
+\DIFadd{Varun Lodaya},
 Mandip Mistry,
-Shruti Muralidhar,
+\DIFadd{Shruti Muralidhar},
 Julia Silge,
-Morgan Taschuk,
+\DIFadd{Morgan Taschuk},
 and Donny Winston
-for their feedback.
+for \DIFadd{their feedback}.
 
 \section*{Tip 1: design after the fact.}
 
@@ -93,14 +97,14 @@ until we've seen today's results.
 It's therefore often pointless to invest as much in up-front planning for our software
 as we would in drawing up blueprints for a building.
 But this isn't a license to create a tangled mess:
-we can and should make it \emph{look} as though we had a plan
+we can and should make it \emph{\DIFadd{look}} as though we \DIFadd{had a plan}
 so that the next person who has to read our code will be able to understand it \cite{Parnas1986}.
 
 \emph{Refactoring} is the process of reorganizing or rewriting code
 without changing its externally-visible behavior.
 \cite{Fowler2018} describes common refactorings,
 such as ``extract function''
-(i.e., move some code out of the function it is in
+(i.e., move some code out of the function \DIFadd{it is} in
 and put it in a new function so that it can be called separately)
 and ``combine parameters into object''
 (which we we will revisit in Tip~5).
@@ -132,10 +136,10 @@ early estimates were that the average person could hold
 $7{\pm}2$ items in short-term memory at once \cite{Miller1956},
 and more recent estimates put its capacity closer to $4{\pm}1$.
 
-This limitation leads to the second tip for software design:
-to ensure that the number of things someone has to remember at any time
+\DIFadd{This limitation leads to the} second tip for software design:
+to ensure that the number of \DIFadd{things} someone has to remember at any time
 in order to understand the code
-fits in short-term memory.
+\DIFdel{they're looking at} fits in short-term memory.
 For example,
 if a function takes 37 parameters
 then the odds are slim
@@ -143,10 +147,10 @@ that someone will remember them all and put them in the right order
 without a lot of trial and error.
 Breaking the function into pieces,
 each of which takes only a handful parameters,
-reduces the \emph{cognitive load}.
+\DIFadd{reduces} the \emph{cognitive load}.
 Similarly,
-defining default values for parameters
-(e.g., ``black'' as a default font color)
+defining default values for \DIFdel{most or all of the} parameters
+\DIFadd{(e.g., ``black'' as a default font color)}
 allows people not to worry about them most of the time.
 
 A complementary approach is to create families of functions
@@ -210,6 +214,9 @@ while they're trying to figure out what this function does.
   Studies of expert designers have found that
   they constantly drill down from high-level ideas to concrete implications
   to find out whether their plan will work or not \cite{Schon1984}.
+  \DIFdel{To the best of the author's knowledge,
+  no currently-available software design tools or methodologies do a better job of capturing these ``why not'' insights
+  than blog posts or lengthy comments in code.}
 \end{mdframed}
 
 \section*{Tip 4: design for evolution.}
@@ -231,17 +238,22 @@ More realistically,
 a change in one place should only require a small number of changes
 in a few predictable places.
 
-Software designers achieve this in two ways.
+Software designers achieve this \DIFadd{in two ways.}
 \emph{Information hiding} means
-putting the data each part of a program needs in one place,
-and only accessing that data through a small set of functions.
-Doing this reduces cognitive load
-by allowing people to focus on one part of the program at a time.
-\emph{Loose coupling} means making those parts independent of one another
-so that they can be combined in many different ways.
-Again,
+putting the data \DIFdel{that} each part of a program needs \DIFdel{to do its job} in one place,
+and only accessing \DIFadd{that data} through a small set of functions.
+Doing this \DIFdel{makes no difference to the computer---by the time it runs the program,
+it's all just a bunch of instructions---but
+people need to understand the program ,
+not execute it.}
+\DIFadd{reduces cognitive load
+by allowing people to focus on one part of the program at a time.}
+\DIFadd{\emph{Loose coupling} means making those parts independent of one another so that}
+they can be combined in many different ways
+\DIFdel{because none of them depends on the internals of any of the others.}
+\DIFadd{Again,
 one of the reasons the Unix command line and R's tidyverse have been so successful
-is how easily their elements can be rearranged to do different things.
+is how easily their elements can be rearranged to do different things}.
 
 Programmers usually implement these principles
 by separating \emph{interface} from \emph{implementation}.
@@ -255,38 +267,43 @@ such as being able to derive classes from one another in object-oriented languag
 or creating generic functions that do the same logical thing in different ways for different types of data in languages like R and Julia.
 
 \emph{Design by contract} is one way to enforce this idea \cite{Meyer1994}.
-Any function can be characterized by
+Any function \DIFdel{or method} can be characterized by
 the \emph{pre-conditions} that must be true of its inputs in order for it to run
 and the \emph{post-conditions} that it guarantees will be true of its output.
 For example,
-a function might require that its input be an array of numbers in sorted order,
-and its post-condition might be that it returns the median of those numbers.
+a function \DIFadd{might require} that its input \DIFdel{must} be an array of numbers in sorted order,
+and its post-condition might be that \DIFdel{the value it returns is one of those elements.}
+\DIFadd{it returns the median of those numbers.
 If the input isn't an array, doesn't contain numbers, or isn't sorted,
 the function may not work;
 if the input satisfies all three conditions,
 the output is guaranteed to be the median.
+}
 
 If design by contract is followed,
-then a new version of this function can only \emph{weaken} the pre-conditions,
+then a \DIFadd{new version of} this function can \DIFadd{only} \emph{weaken} the pre-conditions,
 i.e.,
-place \emph{fewer} restrictions on what it accepts.
+place \DIFadd{\emph{fewer} restrictions on what it accepts.}
 This rule ensures that the new function will be able to handle
 everything that the old one could:
 if the new version placed extra restrictions,
 such as requiring all the numbers in the input to be positive as well as sorted,
 then the new version might reject some inputs that the original version would accept.
 
-Similarly,
+\DIFadd{Similarly,
 a new version of the function can only \emph{strengthen} the post-conditions,
-i.e.,
-make \emph{more} guarantees about its outputs
+i.e., make \emph{more}} guarantees about its outputs
 so that the values the new version produces are a subset of the values the old version could produce.
 For example,
 if the old version of the function returned positive numbers,
 the new version could guarantee to return positive numbers in the range zero to one,
-but could \emph{not} return negative numbers as well as positive ones.
+but could \DIFadd{\emph{not} return negative numbers as well as positive ones.}
 This rule ensures that anything using the old function's output
 will still be able to handle everything the new one produces.
+\DIFdel{Continuing with the previous example,
+a new function's pre-conditions could be that it takes any array of numbers,
+not just one that is sorted,
+and that it produces the largest element in the array.}
 
 \section*{Tip 5: group related information together.}
 
@@ -303,7 +320,7 @@ def enclose(x0, y0, z0, x1, y1, z1, nearness):
 \end{lstlisting}
 
 \noindent
-we can store each point's coordinates in an object
+we can store each point's coordinates in \DIFdel{a structure} \DIFadd{an object}
 and write our code like this:
 
 \begin{lstlisting}
@@ -323,6 +340,10 @@ we can change how points are represented without changing most of the functions 
 \section*{Tip 6: use common patterns.}
 
 Some chunks appear so often that we call them ``patterns'' and give them names.
+\DIFdel{For example,
+parasitism and symbiosis take many forms,
+and it's impossible to draw a precise boundary between them,
+but they are powerful ideas that help us make sense of the world.}
 Good programmers use \emph{design patterns} to structure their code,
 both to reduce the amount of thinking they have to do
 and because these patterns have proven to be useful in the past.
@@ -336,21 +357,22 @@ makes it easier to read.
 
 \begin{mdframed}
   \noindent
-  Patterns don't have to be precisely defined in order to be useful.
+  \DIFadd{Patterns don't have to be precisely defined in order to be useful.
   A classic example is concept of a porch \cite{Brand1995}:
   two people might disagree over whether a specific structure is one or not,
-  but the idea is still useful.
+  but the idea is still useful.}
 \end{mdframed}
 
 Patterns can be found at all scales of programming.
 For example,
-introductory programming courses often show a pattern for finding the ``most valuable'' element of a collection,
-such as the minimum or maximum \cite{Byckling2005},
-while ``filter the rows, group them by category, and calculate a summary for each group''
+introductory programming courses often show a pattern for finding the ``most valuable''
+\DIFdel{variables} \DIFadd{elements of a collection, such as the minimum or maximum} \cite{Byckling2005},
+\DIFadd{while ``filter the rows, group them by category, and calculate a summary for each group''
 is a common pattern in introductory data analysis.
 In more advanced courses students may be introduced to object-oriented design patterns
 for traversing complex data structures
-or using one set of objects to hide the details of how another set of objects work \cite{Gamma1994,Freeman2020}.
+or using one set of objects to hide the details of how another set of objects work
+\cite{Gamma1994,Freeman2020}}.
 
 But design patterns can be a mixed blessing.
 First,
@@ -401,8 +423,10 @@ Developer operations (DevOps) has become a buzzword in the last few years.
 Like ``data science'' or ``computational thinking'',
 the term is popular because people can use it to mean whatever they want,
 but the core idea is a good one:
-managing compilation, packaging, distribution, deployment, and monitoring
-to make them faster and more reliable \cite{Kim2016,Forsgren2018}.
+\DIFdel{automate} \DIFadd{managing} compilation, packaging, distribution, deployment, and monitoring
+\DIFdel{by writing software that operates on or monitors other software}
+\DIFadd{to make them faster and more reliable}
+\cite{Kim2016,Forsgren2018}.
 Automating these tasks pays off many times over,
 but only if you design things so that they can be automated.
 \cite{Taschuk2017} lays out some rules for doing this,
@@ -463,26 +487,30 @@ We can check how well we've done this by asking:
 
 For example,
 suppose that our program uses species data stored in a large database
-that takes several seconds to query.
+\DIFadd{that takes several seconds to query.
 In order to make our program easier to test,
 we can create a second version of the lookup function
 that returns hard-coded values for
-the two or three species used in testing.
-When the program is running in production,
+the two or three species used in testing.}
+\DIFadd{When the program is running in production,
 it uses the original function;
 when we are testing,
-we swap out that function and use the testing version instead.
+we swap out that function and use the testing version instead.}
 This trick only works if \emph{all} requests for species information
-are made via that function,
-but doing this ensures that if we want to change how information is looked up in future
-we can be certain that we'll only have to modify one small piece of code.
-  
+\DIFadd{are made via that function,
+but doing this} ensures that if we want to change how information is looked up in future
+we \DIFdel{are} \DIFadd{can be} certain that we'll only have to modify one small piece of code.
+
 \section*{Tip 9: design as if code was data.}
 
 The insight on which all modern computing is based is that
 code is just another kind of data.
 Programs are just text files,
-which means we can process it like any other piece of text.
+\DIFdel{and once a program is loaded into memory it is just another data structure:
+instead of interpreting its bytes as characters or pixels,
+we interpret them as instructions,
+but they're still just bytes.}
+\DIFadd{which means we can process it like any other piece of text.}
 Examples of this include:
 
 \begin{itemize}
@@ -497,12 +525,14 @@ Examples of this include:
   the definition of a function or variable.
 \end{itemize}
 
-Similarly,
-once a program is loaded into memory it is just another data structure:
+\DIFdel{It is the second insight---the fact that a function in memory}
+\DIFadd{Similarly, once a program is loaded into memory it} is just another
+\DIFdel{kind of data---that has the most impact on design.
+Just a few of the ways it shows up are} \DIFadd{data structure:
 instead of interpreting its bytes as characters or pixels,
 we interpret them as instructions,
 but they're still just bytes.
-This fact impacts design in many ways:
+This fact impacts design in many ways:}
 
 \begin{itemize}
 \item
@@ -644,7 +674,7 @@ Among the drawings that working programmers often find helpful are:
   \label{concept-map}
 \end{figure}
 
-\section*{Tip 11: design with everyone.}
+\section*{Tip 11: design with everyone \DIFdel{in mind}.}
 
 If the last few years have taught us anything about software,
 it's that fairness, privacy, and security cannot be sprinkled on after the fact.
@@ -664,7 +694,7 @@ Similarly,
 programs should not email files to people:
 doing that trains them to open attachments,
 which is a common channel for attacks.
-And in many jurisdictions application must allow people to erase data,
+And \DIFdel{every application should} \DIFadd{in many jurisdictions application must} allow people to erase data,
 which means its data structures and database tables have to be designed to allow for actual erasure,
 not just ``mark as inactive''.
 
@@ -716,7 +746,7 @@ so too do they think about the factors that influence contribution:
 
 \end{itemize}
 
-Designing with contribution in mind is also essential to designing inclusively.
+\DIFadd{Designing with contribution in mind is also essential to designing inclusively.
 Many well-meaning attempts at inclusive design fall short
 because the designers don't involve the people they intend to help in the process.
 Nobody can simultaneously be an expert on programming,
@@ -724,7 +754,16 @@ a research domain,
 and the needs of multiple overlapping diversities.
 Asking for help early on maximizes your chance to get things right;
 designing in ways that make contribution easy maximizes your chances
-that people who know more than you will share their insights.
+that people who know more than you will share their insights.}
+
+\section*{\DIFdel{Conclusion}}
+
+\DIFdel{Figure~REMOVED is a De Rosa SK Pininfarina bicycle.
+It is not a work of art,
+but it \emph{was} carefully designed,
+and as a result it can be analyzed and appreciated esthetically.
+Tips like the ones in this paper
+may one day help us create data analyses that also deserve to be called ``beautiful''.}
 
 \bibliography{12-design}
 
