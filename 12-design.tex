@@ -106,7 +106,7 @@ Just as the tidying steps in a data pipeline
 either convert messy data to a tidy layout or move the data from one tidy layout to another \cite{Wickham2017},
 most refactoring operations move code toward or between well-defined patterns \cite{Kerievsky2004}.
 
-\begin{quotation}
+\begin{mdframed}
   \noindent
   Many designers explain the design of their software
   by recapitulating its history \cite{Brown2011,Brown2012}.
@@ -118,7 +118,7 @@ most refactoring operations move code toward or between well-defined patterns \c
   are particularly good at capturing this,
   and while many tools have been written for tracking and managing requirements,
   none have worked well enough that the average programmer would voluntarily adopt them.
-\end{quotation}
+\end{mdframed}
 
 \section*{Tip 2: design for people's cognitive capacity.}
 
@@ -176,7 +176,7 @@ if I read this Python function aloud:
  def main():
      config = buildConfiguration(sys.argv)
      state = initializeState(config)
-!\colorbox{magenta!30}{~~~~~while config.currentTime < config.haltTime:}!
+!\colorbox{gray!30}{~~~~~while config.currentTime < config.haltTime:}!
          updateState(config, state)
      report(config, state)
 \end{lstlisting}
@@ -190,7 +190,7 @@ I would probably replace the comparison with a function called something like \t
  def main():
      config = buildConfiguration(sys.argv)
      state = initializeState(config)
-!\colorbox{magenta!30}{~~~~~while stillEvolving(config, state):}!
+!\colorbox{gray!30}{~~~~~while stillEvolving(config, state):}!
          updateState(config, state)
      report(config, state)
 \end{lstlisting}
@@ -200,14 +200,14 @@ This rewrite saves the reader
 from having to jump between two different levels of detail
 while they're trying to figure out what this function does.
 
-\begin{quotation}
+\begin{mdframed}
   \noindent
   While the final design should be levelled,
   the process used to create it almost certainly won't be.
   Studies of expert designers have found that
   they constantly drill down from high-level ideas to concrete implications
   to find out whether their plan will work or not \cite{Schon1984}.
-\end{quotation}
+\end{mdframed}
 
 \section*{Tip 4: design for evolution.}
 
@@ -363,14 +363,14 @@ the code was so close to what it should have been that my brain ``corrected'' wh
 and because I assumed that since the third line was the most complicated,
 the error had to be there.
 
-\begin{quotation}
+\begin{mdframed}
   In the same way that you shouldn't write a math problem with a function \texttt{x} of variable \texttt{g},
   you should use the same naming conventions as your peers
   to make your code easier to read.
   It doesn't matter what these are,
   any more than it matters whether you spell ``color'' the correct way or the British way;
   what matters is the predictability that comes from consistency.
-\end{quotation}
+\end{mdframed}
 
 This example illustrates a corollary to Tip~2:
 we should write programs that maximize the ratio of unique code to boilerplate.
@@ -557,7 +557,7 @@ and taking advantage of it can make code much smaller
 and easier to understand---but only if you remember that
 what is powerful in the hands of experts is spooky action-at-a-distance for novices.
 
-\begin{quotation}
+\begin{mdframed}
   The best balance between abstraction and detail
   depends on how much people already know.
   For a novice,
@@ -569,7 +569,7 @@ what is powerful in the hands of experts is spooky action-at-a-distance for novi
   and translate generalities into specifics,
   but their optimum balance also shifts.
   Software that is easiest for them to understand may not be optimal for someone else.
-\end{quotation}
+\end{mdframed}
 
 \begin{figure}
   \centering
@@ -641,7 +641,7 @@ it's that fairness, privacy, and security cannot be sprinkled on after the fact.
 For example,
 if a program is initially designed in a way that allows every user to see everyone else's data,
 adding privacy controls later will be expensive and almost certainly buggy.
-This is called the \emph{Principle of Least Privilege}:
+Programmers call this the \emph{Principle of Least Privilege}:
 every component in the system should require as few permissions as possible
 for as short as possible.
 
