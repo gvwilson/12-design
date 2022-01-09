@@ -13,8 +13,8 @@
 {Greg Wilson}\textsuperscript{1*}
 \\
 \bigskip
-\textbf{1} Third Bit, Toronto, Ontario, Canada\\
-\textbf{*} gvwilson@third-bit.com
+\textbf{1} \colorbox{green!30}{Third Bit, Toronto, Ontario, Canada}\\
+\textbf{*} \colorbox{green!30}{gvwilson@third-bit.com}
 \end{flushleft}
 
 \section*{Introduction}
@@ -65,6 +65,8 @@ these tips may help.
   \item[] Tip 12: design for contribution.
 \end{itemize}
 
+\colorbox{green!30}{Acknowledgments: removed}
+
 \section*{Tip 1: design after the fact.}
 
 When we are doing research,
@@ -74,7 +76,7 @@ It's therefore often pointless to invest as much in up-front planning for our so
 as we would in drawing up blueprints for a building.
 But this isn't a license to create a tangled mess:
 we can and should make it \emph{look} as though we had a plan
-so that the next person who has to read our code will be able to understand it (Box~1) \cite{Parnas1986}.
+so that the next person who has to read our code will be able to understand it \colorbox{green!30}{(Box~1)} \cite{Parnas1986}.
 
 \emph{Refactoring} is the process of reorganizing or rewriting code
 without changing its externally-visible behavior.
@@ -102,7 +104,7 @@ most refactoring operations move code toward or between well-defined patterns \c
   none have worked well enough that the average programmer would voluntarily adopt them.
 
   \noindent
-  Box 1: Challenge and response.
+  \colorbox{green!30}{Box~1: Challenge and response.}
 \end{mdframed}
 
 \section*{Tip 2: design for people's cognitive capacity.}
@@ -184,7 +186,7 @@ I would probably replace the comparison with a function called something like \t
 \noindent
 This rewrite saves the reader
 from having to jump between two different levels of detail
-while they're trying to figure out what this function does (Box~2).
+while they're trying to figure out what this function does \colorbox{green!30}{(Box~2)}.
 
 \begin{mdframed}
   \noindent
@@ -195,7 +197,7 @@ while they're trying to figure out what this function does (Box~2).
   to find out whether their plan will work or not \cite{Schon1984}.
 
   \noindent
-  Box 2: Expert designers' thought processes.
+  \colorbox{green!30}{Box~2: Expert designers' thought processes.}
 \end{mdframed}
 
 \section*{Tip 4: design for evolution.}
@@ -308,7 +310,7 @@ we can change how points are represented without changing most of the functions 
 
 \section*{Tip 6: use common patterns.}
 
-Some chunks appear so often that we call them ``patterns'' and give them names (Box~3).
+Some chunks appear so often that we call them ``patterns'' and give them names \colorbox{green!30}{(Box~3)}.
 Good programmers use \emph{design patterns} to structure their code,
 both to reduce the amount of thinking they have to do
 and because these patterns have proven to be useful in the past.
@@ -328,7 +330,7 @@ makes it easier to read.
   but the idea is still useful.
 
   \noindent
-  Box 3: Patterns and precision.
+  \colorbox{green!30}{Box~3: Patterns and precision.}
 \end{mdframed}
 
 Patterns can be found at all scales of programming.
@@ -356,7 +358,7 @@ it once took me the better part of an hour to spot the error in this code:
 \end{lstlisting}
 
 The problem is in the second line,
-which mistakenly uses the variable \texttt{i} where it should use the variable \texttt{j} (Box~4).
+which mistakenly uses the variable \texttt{i} where it should use the variable \texttt{j} \colorbox{green!30}{(Box~4)}.
 I couldn't find the mistake because
 the code was so close to what it should have been that my brain ``corrected'' what my eyes were seeing,
 and because I assumed that since the third line was the most complicated,
@@ -372,7 +374,7 @@ the error had to be there.
   what matters is the predictability that comes from consistency.
 
   \noindent
-  Box 4: Naming conventions.
+  \colorbox{green!30}{Box~4: Naming conventions.}
 \end{mdframed}
 
 This example illustrates a corollary to Tip~2:
@@ -565,7 +567,7 @@ depends on how much people already know.
 For a novice,
 too many low-level details obscure the meaning,
 while too much abstraction makes it impossible to figure out what's actually going on
-(Fig~\ref{comprehension}).
+(\colorbox{green!30}{Fig~\ref{comprehension}}).
 As that person gains experience
 they become better able to synthesize meaning from detail
 and translate generalities into specifics,
@@ -574,7 +576,7 @@ Software that is easiest for them to understand may not be optimal for someone e
 
 \begin{figure}
   \centering
-  % \includegraphics{fig1.pdf}
+  % \includegraphics{comprehension.pdf}
   \caption{Comprehension curves for novices and experts}
   \label{comprehension}
 \end{figure}
@@ -600,13 +602,13 @@ Among the drawings that working programmers often find helpful are:
 \begin{itemize}
 \item
   flowcharts, which are unfairly maligned \cite{Scanlan1989}
-  (Fig~\ref{flowchart});
+  (\colorbox{green!30}{Fig~\ref{flowchart}});
 \item
   entity-relationship diagrams showing how database tables relate to one another
-  (Fig~\ref{er-diagram});
+  (\colorbox{green!30}{Fig~\ref{er-diagram}});
 \item
   concept maps showing how the designer thinks about the overall problem
-  (Fig~\ref{concept-map}); and
+  (\colorbox{green!30}{Fig~\ref{concept-map}}); and
 \item
   many others,
   such as dataflow diagrams,
@@ -616,21 +618,21 @@ Among the drawings that working programmers often find helpful are:
 
 \begin{figure}
   \centering
-  % \includegraphics[scale=0.6]{fig2.pdf}
+  % \includegraphics[scale=0.6]{flowchart.pdf}
   \caption{Flowchart}
   \label{flowchart}
 \end{figure}
 
 \begin{figure}
   \centering
-  % \includegraphics[scale=0.6]{fig3.pdf}
+  % \includegraphics[scale=0.6]{er-diagram.pdf}
   \caption{Entity-relationship diagram}
   \label{er-diagram}
 \end{figure}
 
 \begin{figure}
   \centering
-  % \includegraphics[scale=0.6]{fig4.pdf}
+  % \includegraphics[scale=0.6]{concept-map.pdf}
   \caption{Concept map}
   \label{concept-map}
 \end{figure}

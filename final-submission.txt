@@ -1,0 +1,21 @@
+Thank you for your mail - I have made the following changes as requested:
+
+1.  Bibliography is now included in the .tex file.
+
+2.  Corresponding author now indicated with '*'.
+
+3.  City, province, and country added to institutional affiliation.
+
+4.  All citations are numeric in square brackets.
+
+5.  All boxes are now numbered and referenced from the main text.
+    (One box has been inlined.)
+
+6.  Embedded diagrams have been removed by commenting out
+    \includegraphics commands.
+
+7.  Figure references are now "Fig 3" rather than "Figure 3".
+
+8.  Figure files are named accordingly.
+
+9.  Acknowledgments have (reluctantly) been removed.
